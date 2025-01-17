@@ -20,18 +20,13 @@ class MoneyTrackerV1 extends StatelessWidget {
       theme: AppTheme.theme,
       initialRoute: '/',
       routes: {
-        '/': (context) => CustomScaffold(
-              body: LandingScreen(),
-            ),
-        '/login': (context) => CustomScaffold(
-              body: LoginScreen(),
-            ),
-        '/dashboard': (context) => CustomScaffold(
-              body: DashboardScreen(),
-            ),
-        '/transaction': (context) => CustomScaffold(
-              body: TransactionScreen(),
-            ),
+        '/': (context) => LandingScreen(),
+        '/login': (context) =>  LoginScreen(),
+
+        '/dashboard': (context) =>  DashboardScreen(),
+
+        '/transaction': (context) => TransactionScreen(initialTab: '1')
+
       },
     );
   }

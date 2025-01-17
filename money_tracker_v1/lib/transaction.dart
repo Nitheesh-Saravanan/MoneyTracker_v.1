@@ -2,25 +2,21 @@ import 'package:flutter/material.dart';
 import 'theme.dart';
 
 class TransactionScreen extends StatefulWidget {
-  const TransactionScreen({super.key});
+  final String initialTab;
+
+  const TransactionScreen({super.key, required this.initialTab});
 
   @override
   _TransactionScreenState createState() => _TransactionScreenState();
 }
 
-class _TransactionScreenState extends State<TransactionScreen> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+class _TransactionScreenState extends State<TransactionScreen> {
+  late String _currentTab;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+    _currentTab = widget.initialTab;
   }
 
   Widget _buildTabContent(String tab) {
@@ -148,24 +144,9 @@ class _TransactionScreenState extends State<TransactionScreen> with SingleTicker
       appBar: AppBar(
         title: Text("Transaction Screen"),
         elevation: 0,
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(text: 'Credit'),
-            Tab(text: 'Debit'),
-            Tab(text: 'OTU'),
-            Tab(text: 'OTO'),
-          ],
-        ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          SingleChildScrollView(child: _buildTabContent('Credit')),
-          SingleChildScrollView(child: _buildTabContent('Debit')),
-          SingleChildScrollView(child: _buildTabContent('OTU')),
-          SingleChildScrollView(child: _buildTabContent('OTO')),
-        ],
+      body: SingleChildScrollView(
+        child: _buildTabContent(_currentTab),
       ),
     );
   }

@@ -10,7 +10,7 @@ class LandingScreen extends StatelessWidget {
 
       body: Container(
         padding: const EdgeInsets.only(
-            left: 10.0, right: 10.0, top: 200.0, bottom: 20.0),
+            left: 15.0, right: 15.0, top: 200.0, bottom: 30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +72,7 @@ class LandingScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      foregroundColor: Colors.white, // Set the text color to white
+                      foregroundColor: Colors.white, 
                     ),
                     child: Text("Login"),
                 ),

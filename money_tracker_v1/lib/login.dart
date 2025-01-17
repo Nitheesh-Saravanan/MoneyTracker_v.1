@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen>
                 enableFeedback: true,
 
                 textStyle: TextStyle(
-                  fontSize: 15,
+                  fontSize: 20,
                   fontFamily: 'sans-serif Condensed',
                   fontWeight: FontWeight.w300,
                   shadows: [
@@ -184,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen>
                 enableFeedback: true,
 
                 textStyle: TextStyle(
-                  fontSize: 15,
+                  fontSize: 20,
                   fontFamily: 'sans-serif Condensed',
                   fontWeight: FontWeight.w300,
                   shadows: [
@@ -195,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen>
                     ),
                   ],
                 ),
-                foregroundColor: Colors.white, // Set the text color to white
+                foregroundColor: Colors.white, 
               ),
               child: Text("Signup"),
             ),
@@ -210,7 +210,10 @@ class _LoginScreenState extends State<LoginScreen>
   Widget build(BuildContext context) {
     return CustomScaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text("Login"), elevation: 0,
+                centerTitle: true,
+                backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+        
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

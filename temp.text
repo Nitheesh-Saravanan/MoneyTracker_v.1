@@ -1,0 +1,297 @@
+import 'package:flutter/material.dart';
+import 'theme.dart';
+
+class TransactionScreen extends StatefulWidget {
+  const TransactionScreen({super.key});
+
+  @override
+  _TransactionScreenState createState() => _TransactionScreenState();
+}
+
+class _TransactionScreenState extends State<TransactionScreen> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 4, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  Widget _buildTabContent(String tab) {
+    switch (tab) {
+      case 'Credit':
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Credit Amount',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 16),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Source',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+                child: Text("Save"),
+              ),
+            ],
+          ),
+        );
+      case 'Debit':
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Debit Amount',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 16),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Reason',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+                child: Text("Save"),
+              ),
+            ],
+          ),
+        );
+      case 'OTU':
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Amount Owed to You',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 16),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Person',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+                child: Text("Save"),
+              ),
+            ],
+          ),
+        );
+      case 'OTO':
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Amount You Owed',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 16),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Person',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+                child: Text("Save"),
+              ),
+            ],
+          ),
+        );
+      default:
+        return Center(child: Text("Invalid Tab"));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScaffold(
+      appBar: AppBar(
+        title: Text("Transaction Screen"),
+        elevation: 0,
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: [
+            Tab(text: 'Credit'),
+            Tab(text: 'Debit'),
+            Tab(text: 'OTU'),
+            Tab(text: 'OTO'),
+          ],
+        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          SingleChildScrollView(child: _buildTabContent('Credit')),
+          SingleChildScrollView(child: _buildTabContent('Debit')),
+          SingleChildScrollView(child: _buildTabContent('OTU')),
+          SingleChildScrollView(child: _buildTabContent('OTO')),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+import 'package:flutter/material.dart';
+
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
+
+  @override
+  _DashboardScreenState createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  bool _isExpanded = false;
+
+  void _toggleExpand() {
+    setState(() {
+      _isExpanded = !_isExpanded;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+        title: Text("Dashborad"), elevation: 0,
+                centerTitle: true,
+                backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+        ),
+      body: Center(child: Text("Main Content")),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.black,
+        shape: CircularNotchedRectangle(),
+        notchMargin: 8.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: Icon(Icons.home_rounded, color: Colors.white, size: 38),
+              onPressed: () {},
+            ),
+            SizedBox(width: 30), // Space for the floating action button
+            IconButton(
+              icon: Icon(Icons.settings, color: Colors.white, size: 38),
+              onPressed: () {},
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        width: _isExpanded ? 220 : 60,
+        height: _isExpanded ? 250 : 60,
+        child: FloatingActionButton(
+          onPressed: _toggleExpand,
+          backgroundColor: const Color.fromARGB(255, 130, 37, 243),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(_isExpanded ? 40.0 : 28.0),
+          ),
+          child: AnimatedSwitcher(
+            duration: Duration(milliseconds: 500),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return FadeTransition(opacity: animation, child: child);
+            },
+            child: _isExpanded
+                ? SingleChildScrollView(
+                    key: ValueKey<bool>(_isExpanded),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                      AnimatedOpacity(
+                        
+                        opacity: _isExpanded ? 1.0 : 0.0,
+                        duration: Duration(milliseconds: 500),
+                        child: Text('Option 1', style: TextStyle(fontSize: 25, color: Colors.white)),
+                      ),
+                      SizedBox(height: 20 ),
+                      AnimatedOpacity(
+                        opacity: _isExpanded ? 1.0 : 0.0,
+                        duration: Duration(milliseconds: 500),
+                        child: Text('Option 2', style: TextStyle(fontSize: 25, color: Colors.white)),
+                      ),
+                      SizedBox(height: 10),
+                      AnimatedOpacity(
+                        opacity: _isExpanded ? 1.0 : 0.0,
+                        duration: Duration(milliseconds: 500),
+                        child: Text('Option 3', style: TextStyle(fontSize: 25, color: Colors.white)),
+                      ),
+                      SizedBox(height: 10),
+                      AnimatedOpacity(
+                        opacity: _isExpanded ? 1.0 : 0.0,
+                        duration: Duration(milliseconds: 500),
+                        child: Text('Option 4', style: TextStyle(fontSize: 25, color: Colors.white)),
+                      ),
+                      ],
+                    ),
+                  )
+                : Icon(
+                    Icons.add,
+                    key: ValueKey<bool>(_isExpanded),
+                    color: Colors.white,
+                    size: 50,
+                    blendMode: BlendMode.lighten,
+                  ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: CustomFloatingActionButtonLocation(),
+    );
+  }
+}
+
+class CustomFloatingActionButtonLocation extends FloatingActionButtonLocation {
+  @override
+  Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
+    final double fabX = (scaffoldGeometry.scaffoldSize.width - scaffoldGeometry.floatingActionButtonSize.width) / 2;
+    final double fabY = scaffoldGeometry.scaffoldSize.height - scaffoldGeometry.floatingActionButtonSize.height - 40; // Adjust the value to place it lower
+    return Offset(fabX, fabY);
+  }
+}

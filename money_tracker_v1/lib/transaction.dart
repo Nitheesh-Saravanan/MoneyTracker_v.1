@@ -25,6 +25,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 decoration: InputDecoration(
@@ -39,13 +40,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login');
-                },
-                child: Text("Save"),
-              ),
             ],
           ),
         );
@@ -53,6 +47,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 decoration: InputDecoration(
@@ -67,13 +62,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login');
-                },
-                child: Text("Save"),
-              ),
             ],
           ),
         );
@@ -81,6 +69,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 decoration: InputDecoration(
@@ -95,13 +84,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login');
-                },
-                child: Text("Save"),
-              ),
             ],
           ),
         );
@@ -109,6 +91,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 decoration: InputDecoration(
@@ -123,13 +106,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login');
-                },
-                child: Text("Save"),
-              ),
             ],
           ),
         );
@@ -140,13 +116,67 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text("Transaction Screen"),
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: _buildTabContent(_currentTab),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/BG.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Center(
+                  child: SingleChildScrollView(
+                    child: _buildTabContent(_currentTab),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/login');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 255, 205, 4),
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                    elevation: 9,
+                    surfaceTintColor: const Color.fromARGB(255, 255, 207, 33),
+                    shadowColor: const Color.fromARGB(255, 255, 255, 0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    enableFeedback: true,
+                    textStyle: TextStyle(
+                      fontSize: 25,
+                      fontFamily: 'sans-serif Condensed',
+                      fontWeight: FontWeight.w500,
+                      shadows: [
+                        Shadow(
+                          color: const Color.fromARGB(49, 0, 0, 0),
+                          offset: Offset(1, 1),
+                          blurRadius: 6,
+                        ),
+                      ],
+                    ),
+                    foregroundColor: const Color.fromARGB(255, 51, 51, 51),
+                  ),
+                  child: Text('Save'),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

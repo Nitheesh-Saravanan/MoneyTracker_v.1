@@ -29,30 +29,57 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-        title: Text("Dashboard"), elevation: 0,
-                centerTitle: true,
-                backgroundColor: const Color.fromARGB(0, 0, 0, 0),
-       ),
-      body: Center(child: Text("Main Content")),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
-        shape: CircularNotchedRectangle(),
-        notchMargin: 8.0,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-              icon: Icon(Icons.home_rounded, color: Colors.white, size: 38),
-              onPressed: () {},
+      appBar: AppBar(
+        title: Text("Dashboard"),
+        elevation: 0,
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+      ),
+      body: Stack(
+        children: [
+          // Background image
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/BG.jpg'),
+                fit: BoxFit.cover,
+              ),
             ),
-            SizedBox(width: 30), // Space for the floating action button
-            IconButton(
-              icon: Icon(Icons.settings, color: Colors.white, size: 38),
-              onPressed: () {},
-            ),
-          ],
-        ),
+          ),
+          // Content
+          Column(
+            children: [
+              Expanded(
+                child: Center(child: Text("Main Content")),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.9, // Adjust the width as needed
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                  child: BottomAppBar(
+                    color: const Color.fromARGB(196, 55, 55, 55),
+                    shape: AutomaticNotchedShape( RoundedRectangleBorder()),
+                    notchMargin: 8.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.home_rounded, color: Colors.white, size: 38),
+                          onPressed: () {},
+                        ),
+                        SizedBox(width: 30), // Space for the floating action button
+                        IconButton(
+                          icon: Icon(Icons.settings, color: Colors.white, size: 38),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
       floatingActionButton: AnimatedContainer(
         duration: Duration(milliseconds: 300),
@@ -80,7 +107,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           onTap: () => _navigateToTransaction('Credit'),
                           child: AnimatedOpacity(
                             opacity: _isExpanded ? 1.0 : 0.0,
-                            duration: Duration(milliseconds: 500),
+                            duration: Duration(milliseconds: 300),
                             child: Text('Credit', style: TextStyle(fontSize: 25, color: Colors.white)),
                           ),
                         ),
@@ -89,7 +116,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           onTap: () => _navigateToTransaction('Debit'),
                           child: AnimatedOpacity(
                             opacity: _isExpanded ? 1.0 : 0.0,
-                            duration: Duration(milliseconds: 500),
+                            duration: Duration(milliseconds: 400),
                             child: Text('Debit', style: TextStyle(fontSize: 25, color: Colors.white)),
                           ),
                         ),
@@ -98,7 +125,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           onTap: () => _navigateToTransaction('OTU'),
                           child: AnimatedOpacity(
                             opacity: _isExpanded ? 1.0 : 0.0,
-                            duration: Duration(milliseconds: 500),
+                            duration: Duration(milliseconds: 400),
                             child: Text('OTU', style: TextStyle(fontSize: 25, color: Colors.white)),
                           ),
                         ),
@@ -107,7 +134,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           onTap: () => _navigateToTransaction('OTO'),
                           child: AnimatedOpacity(
                             opacity: _isExpanded ? 1.0 : 0.0,
-                            duration: Duration(milliseconds: 500),
+                            duration: Duration(milliseconds: 400),
                             child: Text('OTO', style: TextStyle(fontSize: 25, color: Colors.white)),
                           ),
                         ),
@@ -133,7 +160,7 @@ class CustomFloatingActionButtonLocation extends FloatingActionButtonLocation {
   @override
   Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
     final double fabX = (scaffoldGeometry.scaffoldSize.width - scaffoldGeometry.floatingActionButtonSize.width) / 2;
-    final double fabY = scaffoldGeometry.scaffoldSize.height - scaffoldGeometry.floatingActionButtonSize.height - 40; // Adjust the value to place it lower
+    final double fabY = scaffoldGeometry.scaffoldSize.height - ( scaffoldGeometry.floatingActionButtonSize.height + 10) ; // Adjust the value to place it lower
     return Offset(fabX, fabY);
   }
 }

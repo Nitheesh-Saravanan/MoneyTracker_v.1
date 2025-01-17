@@ -85,7 +85,6 @@ class _LoginScreenState extends State<LoginScreen>
                   borderRadius: BorderRadius.circular(50),
                 ),
                 enableFeedback: true,
-
                 textStyle: TextStyle(
                   fontSize: 20,
                   fontFamily: 'sans-serif Condensed',
@@ -182,7 +181,6 @@ class _LoginScreenState extends State<LoginScreen>
                   borderRadius: BorderRadius.circular(50),
                 ),
                 enableFeedback: true,
-
                 textStyle: TextStyle(
                   fontSize: 20,
                   fontFamily: 'sans-serif Condensed',
@@ -208,106 +206,116 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text("Login"), elevation: 0,
                 centerTitle: true,
                 backgroundColor: const Color.fromARGB(0, 0, 0, 0),
         
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Stack(
         children: [
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                _buildTabContent('Login'),
-                _buildTabContent('Signup'),
-              ],
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/BG.jpg'),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _selectedTab = 'Login';
-                      _tabController.animateTo(0);
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _selectedTab == 'Login'
-                        ? const Color.fromARGB(255, 255, 205, 4)
-                        : const Color.fromARGB(255, 253, 246, 218),
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                    elevation: 9,
-                    surfaceTintColor: const Color.fromARGB(255, 255, 207, 33),
-                    shadowColor: const Color.fromARGB(255, 255, 255, 0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    enableFeedback: true,
-
-                    textStyle: TextStyle(
-                      fontSize: _selectedTab == 'Login' ? 25 : 20,
-                      fontFamily: 'sans-serif Condensed',
-                      fontWeight: FontWeight.w500,
-                      shadows: [
-                        Shadow(
-                          color: const Color.fromARGB(49, 0, 0, 0),
-                          offset: Offset(1, 1),
-                          blurRadius: 6,
-                        ),
-                      ],
-                    ),
-                    foregroundColor: const Color.fromARGB(
-                        255, 51, 51, 51), // Set the text color to white
-                  ),
-                  child: Text('Login'),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    _buildTabContent('Login'),
+                    _buildTabContent('Signup'),
+                  ],
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _selectedTab = 'Signup';
-                      _tabController.animateTo(1);
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _selectedTab == 'Signup'
-                        ? const Color.fromARGB(255, 255, 205, 4)
-                        : const Color.fromARGB(255, 253, 246, 218),
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                    elevation: 9,
-                    surfaceTintColor: const Color.fromARGB(255, 255, 207, 33),
-                    shadowColor: const Color.fromARGB(255, 255, 255, 0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    enableFeedback: true,
-
-                    textStyle: TextStyle(
-                      fontSize: _selectedTab == 'Signup' ? 25 : 20,
-                      fontFamily: 'sans-serif Condensed',
-                      fontWeight: FontWeight.w500,
-                      shadows: [
-                        Shadow(
-                          color: const Color.fromARGB(49, 0, 0, 0),
-                          offset: Offset(1, 1),
-                          blurRadius: 6,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _selectedTab = 'Login';
+                          _tabController.animateTo(0);
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _selectedTab == 'Login'
+                            ? const Color.fromARGB(255, 255, 205, 4)
+                            : const Color.fromARGB(255, 253, 246, 218),
+                        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                        elevation: 9,
+                        surfaceTintColor: const Color.fromARGB(255, 255, 207, 33),
+                        shadowColor: const Color.fromARGB(255, 255, 255, 0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                      ],
+                        enableFeedback: true,
+                        textStyle: TextStyle(
+                          fontSize: _selectedTab == 'Login' ? 25 : 20,
+                          fontFamily: 'sans-serif Condensed',
+                          fontWeight: FontWeight.w500,
+                          shadows: [
+                            Shadow(
+                              color: const Color.fromARGB(49, 0, 0, 0),
+                              offset: Offset(1, 1),
+                              blurRadius: 6,
+                            ),
+                          ],
+                        ),
+                        foregroundColor: const Color.fromARGB(
+                            255, 51, 51, 51), // Set the text color to white
+                      ),
+                      child: Text('Login'),
                     ),
-                    foregroundColor: const Color.fromARGB(
-                        255, 51, 51, 51), // Set the text color to white
-                  ),
-                  child: Text('Signup'),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _selectedTab = 'Signup';
+                          _tabController.animateTo(1);
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _selectedTab == 'Signup'
+                            ? const Color.fromARGB(255, 255, 205, 4)
+                            : const Color.fromARGB(255, 253, 246, 218),
+                        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                        elevation: 9,
+                        surfaceTintColor: const Color.fromARGB(255, 255, 207, 33),
+                        shadowColor: const Color.fromARGB(255, 255, 255, 0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        enableFeedback: true,
+                        textStyle: TextStyle(
+                          fontSize: _selectedTab == 'Signup' ? 25 : 20,
+                          fontFamily: 'sans-serif Condensed',
+                          fontWeight: FontWeight.w500,
+                          shadows: [
+                            Shadow(
+                              color: const Color.fromARGB(49, 0, 0, 0),
+                              offset: Offset(1, 1),
+                              blurRadius: 6,
+                            ),
+                          ],
+                        ),
+                        foregroundColor: const Color.fromARGB(
+                            255, 51, 51, 51), // Set the text color to white
+                      ),
+                      child: Text('Signup'),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),

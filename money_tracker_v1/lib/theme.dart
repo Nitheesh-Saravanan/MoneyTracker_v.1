@@ -2,46 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-class Background extends StatelessWidget {
-  final Widget child;
-
-  const Background({required this.child, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/BG.jpg'), // Correct path to your background image
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: child,
-    );
-  }
-}
-
-class CustomScaffold extends StatelessWidget {
-  final Widget body;
-  final PreferredSizeWidget? appBar;
-
-  const CustomScaffold({required this.body, this.appBar, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBar,
-      body: Stack(
-        children: [
-          Background(child: Container()), // Background image
-          body, // Main content
-        ],
-      ),
-    );
-  }
-}
-
-
 class AppTheme {
   static final ThemeData theme = ThemeData(
     brightness: Brightness.light,

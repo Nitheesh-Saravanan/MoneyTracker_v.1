@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'theme.dart'; //theme file
+//theme file
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});

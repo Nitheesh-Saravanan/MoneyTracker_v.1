@@ -1,316 +1,166 @@
 import 'package:flutter/material.dart';
-import 'theme.dart';
+import 'transaction.dart'; // Make sure to import the TransactionScreen
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _DashboardScreenState createState() => _DashboardScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  String _selectedTab = 'Login';
+class _DashboardScreenState extends State<DashboardScreen> {
+  bool _isExpanded = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+  void _toggleExpand() {
+    setState(() {
+      _isExpanded = !_isExpanded;
+    });
   }
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  Widget _buildTabContent(String tab) {
-    switch (tab) {
-      case 'Login':
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Email id',
-                  filled: true,
-                  labelStyle: TextStyle(
-                    fontSize: 20,
-                    color: const Color.fromARGB(152, 255, 255, 255),
-                    fontFamily: 'sans-serif Condensed',
-                    fontWeight: FontWeight.w300,
-                  ),
-                  fillColor: Colors.transparent,
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  filled: true,
-                  labelStyle: TextStyle(
-                    fontSize: 20,
-                    color: const Color.fromARGB(152, 255, 255, 255),
-                    fontFamily: 'sans-serif Condensed',
-                    fontWeight: FontWeight.w300,
-                  ),
-                  fillColor: Colors.transparent,
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/dashboard');
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 130, 37, 243),
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                animationDuration: Duration(seconds: 1),
-                elevation: 4,
-                shadowColor: const Color.fromARGB(255, 0, 0, 0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                enableFeedback: true,
-
-                textStyle: TextStyle(
-                  fontSize: 20,
-                  fontFamily: 'sans-serif Condensed',
-                  fontWeight: FontWeight.w300,
-                  shadows: [
-                    Shadow(
-                      color: const Color.fromARGB(152, 0, 0, 0),
-                      offset: Offset(3, 3),
-                      blurRadius: 6,
-                    ),
-                  ],
-                ),
-                foregroundColor: Colors.white, // Set the text color to white
-              ),
-              child: Text("login"),
-            ),
-          ],
-        );
-      case 'Signup':
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Email id',
-                  filled: true,
-                  labelStyle: TextStyle(
-                    fontSize: 20,
-                    color: const Color.fromARGB(152, 255, 255, 255),
-                    fontFamily: 'sans-serif Condensed',
-                    fontWeight: FontWeight.w300,
-                  ),
-                  fillColor: Colors.transparent,
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  filled: true,
-                  labelStyle: TextStyle(
-                    fontSize: 20,
-                    color: const Color.fromARGB(152, 255, 255, 255),
-                    fontFamily: 'sans-serif Condensed',
-                    fontWeight: FontWeight.w300,
-                  ),
-                  fillColor: Colors.transparent,
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Re-Password',
-                  filled: true,
-                  labelStyle: TextStyle(
-                    fontSize: 20,
-                    color: const Color.fromARGB(152, 255, 255, 255),
-                    fontFamily: 'sans-serif Condensed',
-                    fontWeight: FontWeight.w300,
-                  ),
-                  fillColor: Colors.transparent,
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/dashboard');
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 130, 37, 243),
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                animationDuration: Duration(seconds: 1),
-                elevation: 4,
-                shadowColor: const Color.fromARGB(255, 0, 0, 0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                enableFeedback: true,
-
-                textStyle: TextStyle(
-                  fontSize: 20,
-                  fontFamily: 'sans-serif Condensed',
-                  fontWeight: FontWeight.w300,
-                  shadows: [
-                    Shadow(
-                      color: const Color.fromARGB(152, 0, 0, 0),
-                      offset: Offset(3, 3),
-                      blurRadius: 6,
-                    ),
-                  ],
-                ),
-                foregroundColor: Colors.white, 
-              ),
-              child: Text("Signup"),
-            ),
-          ],
-        );
-      default:
-        return Center(child: Text("Invalid Tab"));
-    }
+  void _navigateToTransaction(String tab) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TransactionScreen(initialTab: tab),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"), elevation: 0,
-                centerTitle: true,
-                backgroundColor: const Color.fromARGB(0, 0, 0, 0),
-        
+        title: Text("Dashboard"),
+        elevation: 0,
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Stack(
         children: [
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                _buildTabContent('Login'),
-                _buildTabContent('Signup'),
-              ],
+          // Background image
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/BG.jpg'),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _selectedTab = 'Login';
-                      _tabController.animateTo(0);
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _selectedTab == 'Login'
-                        ? const Color.fromARGB(255, 255, 205, 4)
-                        : const Color.fromARGB(255, 253, 246, 218),
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                    elevation: 9,
-                    surfaceTintColor: const Color.fromARGB(255, 255, 207, 33),
-                    shadowColor: const Color.fromARGB(255, 255, 255, 0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    enableFeedback: true,
-
-                    textStyle: TextStyle(
-                      fontSize: _selectedTab == 'Login' ? 25 : 20,
-                      fontFamily: 'sans-serif Condensed',
-                      fontWeight: FontWeight.w500,
-                      shadows: [
-                        Shadow(
-                          color: const Color.fromARGB(49, 0, 0, 0),
-                          offset: Offset(1, 1),
-                          blurRadius: 6,
+          // Content
+          Column(
+            children: [
+              Expanded(
+                child: Center(child: Text("Main Content")),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9, // Adjust the width as needed
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                  child: BottomAppBar(
+                    color: const Color.fromARGB(196, 55, 55, 55),
+                    shape: AutomaticNotchedShape( RoundedRectangleBorder()),
+                    notchMargin: 8.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.home_rounded, color: Colors.white, size: 38),
+                          onPressed: () {},
+                        ),
+                        SizedBox(width: 30), // Space for the floating action button
+                        IconButton(
+                          icon: Icon(Icons.settings, color: Colors.white, size: 38),
+                          onPressed: () {},
                         ),
                       ],
                     ),
-                    foregroundColor: const Color.fromARGB(
-                        255, 51, 51, 51), // Set the text color to white
                   ),
-                  child: Text('Login'),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _selectedTab = 'Signup';
-                      _tabController.animateTo(1);
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _selectedTab == 'Signup'
-                        ? const Color.fromARGB(255, 255, 205, 4)
-                        : const Color.fromARGB(255, 253, 246, 218),
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                    elevation: 9,
-                    surfaceTintColor: const Color.fromARGB(255, 255, 207, 33),
-                    shadowColor: const Color.fromARGB(255, 255, 255, 0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    enableFeedback: true,
-
-                    textStyle: TextStyle(
-                      fontSize: _selectedTab == 'Signup' ? 25 : 20,
-                      fontFamily: 'sans-serif Condensed',
-                      fontWeight: FontWeight.w500,
-                      shadows: [
-                        Shadow(
-                          color: const Color.fromARGB(49, 0, 0, 0),
-                          offset: Offset(1, 1),
-                          blurRadius: 6,
-                        ),
-                      ],
-                    ),
-                    foregroundColor: const Color.fromARGB(
-                        255, 51, 51, 51), // Set the text color to white
-                  ),
-                  child: Text('Signup'),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
+      floatingActionButton: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        width: _isExpanded ? 180 : 60,
+        height: _isExpanded ? 230 : 60,
+        child: FloatingActionButton(
+          onPressed: _toggleExpand,
+          backgroundColor: const Color.fromARGB(255, 130, 37, 243),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(_isExpanded ? 40.0 : 28.0),
+          ),
+          child: AnimatedSwitcher(
+            duration: Duration(milliseconds: 500),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return FadeTransition(opacity: animation, child: child);
+            },
+            child: _isExpanded
+                ? SingleChildScrollView(
+                    key: ValueKey<bool>(_isExpanded),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: () => _navigateToTransaction('Credit'),
+                          child: AnimatedOpacity(
+                            opacity: _isExpanded ? 1.0 : 0.0,
+                            duration: Duration(milliseconds: 300),
+                            child: Text('Credit', style: TextStyle(fontSize: 25, color: Colors.white)),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: () => _navigateToTransaction('Debit'),
+                          child: AnimatedOpacity(
+                            opacity: _isExpanded ? 1.0 : 0.0,
+                            duration: Duration(milliseconds: 400),
+                            child: Text('Debit', style: TextStyle(fontSize: 25, color: Colors.white)),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: () => _navigateToTransaction('OTU'),
+                          child: AnimatedOpacity(
+                            opacity: _isExpanded ? 1.0 : 0.0,
+                            duration: Duration(milliseconds: 400),
+                            child: Text('OTU', style: TextStyle(fontSize: 25, color: Colors.white)),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: () => _navigateToTransaction('OTO'),
+                          child: AnimatedOpacity(
+                            opacity: _isExpanded ? 1.0 : 0.0,
+                            duration: Duration(milliseconds: 400),
+                            child: Text('OTO', style: TextStyle(fontSize: 25, color: Colors.white)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Icon(
+                    Icons.add,
+                    key: ValueKey<bool>(_isExpanded),
+                    color: Colors.white,
+                    size: 50,
+                    blendMode: BlendMode.lighten,
+                  ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: CustomFloatingActionButtonLocation(),
     );
+  }
+}
+
+class CustomFloatingActionButtonLocation extends FloatingActionButtonLocation {
+  @override
+  Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
+    final double fabX = (scaffoldGeometry.scaffoldSize.width - scaffoldGeometry.floatingActionButtonSize.width) / 2;
+    final double fabY = scaffoldGeometry.scaffoldSize.height - ( scaffoldGeometry.floatingActionButtonSize.height + 10) ; // Adjust the value to place it lower
+    return Offset(fabX, fabY);
   }
 }

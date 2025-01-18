@@ -28,6 +28,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double navBarWidth = MediaQuery.of(context).size.width * 0.9;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Dashboard"),
@@ -52,13 +54,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Expanded(
                 child: Center(child: Text("Main Content")),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.9, // Adjust the width as needed
+              SizedBox(
+                width: navBarWidth, // Adjust the width as needed
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(40.0)),
                   child: BottomAppBar(
                     color: const Color.fromARGB(196, 55, 55, 55),
-                    shape: AutomaticNotchedShape( RoundedRectangleBorder()),
+                    shape: AutomaticNotchedShape(RoundedRectangleBorder()),
                     notchMargin: 8.0,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -79,76 +81,58 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ],
           ),
+          AnimatedPositioned(
+            duration: Duration(milliseconds: 300),
+            bottom: _isExpanded ? 100 : -200, // Adjust the value to hide the popup
+            left: MediaQuery.of(context).size.width * 0.05, // Center the popup
+            child: AnimatedOpacity(
+              opacity: _isExpanded ? 1.0 : 0.0,
+              duration: Duration(milliseconds: 300),
+              child: Container(
+                width: navBarWidth,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 130, 37, 243), // Popup background color
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () => _navigateToTransaction('Credit'),
+                      child: Text('Credit', style: TextStyle(fontSize: 25, color: Colors.white)),
+                    ),
+                    SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () => _navigateToTransaction('Debit'),
+                      child: Text('Debit', style: TextStyle(fontSize: 25, color: Colors.white)),
+                    ),
+                    SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () => _navigateToTransaction('OTU'),
+                      child: Text('OTU', style: TextStyle(fontSize: 25, color: Colors.white)),
+                    ),
+                    SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () => _navigateToTransaction('OTO'),
+                      child: Text('OTO', style: TextStyle(fontSize: 25, color: Colors.white)),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
-      floatingActionButton: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
-        width: _isExpanded ? 180 : 60,
-        height: _isExpanded ? 230 : 60,
-        child: FloatingActionButton(
-          onPressed: _toggleExpand,
-          backgroundColor: const Color.fromARGB(255, 130, 37, 243),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(_isExpanded ? 40.0 : 28.0),
-          ),
-          child: AnimatedSwitcher(
-            duration: Duration(milliseconds: 500),
-            transitionBuilder: (Widget child, Animation<double> animation) {
-              return FadeTransition(opacity: animation, child: child);
-            },
-            child: _isExpanded
-                ? SingleChildScrollView(
-                    key: ValueKey<bool>(_isExpanded),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () => _navigateToTransaction('Credit'),
-                          child: AnimatedOpacity(
-                            opacity: _isExpanded ? 1.0 : 0.0,
-                            duration: Duration(milliseconds: 300),
-                            child: Text('Credit', style: TextStyle(fontSize: 25, color: Colors.white)),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () => _navigateToTransaction('Debit'),
-                          child: AnimatedOpacity(
-                            opacity: _isExpanded ? 1.0 : 0.0,
-                            duration: Duration(milliseconds: 400),
-                            child: Text('Debit', style: TextStyle(fontSize: 25, color: Colors.white)),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () => _navigateToTransaction('OTU'),
-                          child: AnimatedOpacity(
-                            opacity: _isExpanded ? 1.0 : 0.0,
-                            duration: Duration(milliseconds: 400),
-                            child: Text('OTU', style: TextStyle(fontSize: 25, color: Colors.white)),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () => _navigateToTransaction('OTO'),
-                          child: AnimatedOpacity(
-                            opacity: _isExpanded ? 1.0 : 0.0,
-                            duration: Duration(milliseconds: 400),
-                            child: Text('OTO', style: TextStyle(fontSize: 25, color: Colors.white)),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                : Icon(
-                    Icons.add,
-                    key: ValueKey<bool>(_isExpanded),
-                    color: Colors.white,
-                    size: 50,
-                    blendMode: BlendMode.lighten,
-                  ),
-          ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _toggleExpand,
+        backgroundColor: const Color.fromARGB(255, 130, 37, 243),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(28.0),
+        ),
+        child: AnimatedRotation(
+          turns: _isExpanded ? 0.125 : 0, // 45 degrees in turns
+          duration: Duration(milliseconds: 300),
+          child: Icon(Icons.add, color: Colors.white, size: 50),
         ),
       ),
       floatingActionButtonLocation: CustomFloatingActionButtonLocation(),
@@ -160,7 +144,7 @@ class CustomFloatingActionButtonLocation extends FloatingActionButtonLocation {
   @override
   Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
     final double fabX = (scaffoldGeometry.scaffoldSize.width - scaffoldGeometry.floatingActionButtonSize.width) / 2;
-    final double fabY = scaffoldGeometry.scaffoldSize.height - ( scaffoldGeometry.floatingActionButtonSize.height + 10) ; // Adjust the value to place it lower
+    final double fabY = scaffoldGeometry.scaffoldSize.height - (scaffoldGeometry.floatingActionButtonSize.height + 10); // Adjust the value to place it lower
     return Offset(fabX, fabY);
   }
 }
